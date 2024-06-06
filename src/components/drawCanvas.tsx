@@ -1,10 +1,14 @@
 import { fabric } from "fabric";
 import { Canvas } from 'fabric/fabric-impl';
-import React, { useEffect, useImperativeHandle, useLayoutEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useState } from "react";
 
 const canvasId = "canvas";
 
-export const DrawCanvas = (props: any, ref: any) =>{
+export interface DrawCanvasMethods {
+    clear: () => void;
+}
+
+export const DrawCanvas = forwardRef((props: any, ref: any) =>{
     const [fabricCanvas, setFabricCanvas] = useState<Canvas>()
     
 
@@ -21,13 +25,11 @@ export const DrawCanvas = (props: any, ref: any) =>{
         canvas.clear()
         setFabricCanvas(canvas)
     }
-/*
     useImperativeHandle(ref,()=>({
         clear: ()=>{
             clearing()
         }
     }))
-*/
     useEffect(clearing, []);
 
     const handleBeforeUnload = () => {
@@ -45,4 +47,4 @@ export const DrawCanvas = (props: any, ref: any) =>{
     return (
         <canvas id={canvasId} style={{height: "300px",width: "300px"}} />
     )
-}
+})

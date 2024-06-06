@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import React, { useRef } from 'react';
 import { PlayResult } from '../utils';
-import { DrawCanvas } from '../components/drawCanvas';
+import { DrawCanvas, DrawCanvasMethods } from '../components/drawCanvas';
 
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const GamePage = (props: Props): JSX.Element => {
-    const canvas = useRef(null)
+    const canvas = useRef<DrawCanvasMethods | null>(null)
     return (
         <>
             <AppBar position="static" style={{padding: 10}}>
@@ -51,11 +51,7 @@ export const GamePage = (props: Props): JSX.Element => {
                         <Box position={"absolute"} top={0} bottom={0} left={0} right={0} maxHeight={"300px"} maxWidth={"300px"} margin={"auto"} border={"solid 4px black"} padding={0} boxSizing={"content-box"}>
                             <DrawCanvas ref={canvas} />
                             <Button variant="outlined" style={{position: "absolute", right: -100, bottom: 0, margin: "auto"}} onClick={()=>{
-                                /*
-                                if (canvas.current != null) {
-                                    canvas.current!.clear()
-                                }
-                                */
+                                canvas.current?.clear()
                             }}>クリア</Button>
                         </Box>
                     </Paper>
