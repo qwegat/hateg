@@ -45,7 +45,7 @@ export const ResultPage = (): JSX.Element => {
             }
             await worker.terminate();
           })();
-    }, []);
+    }, [base64Uri, char]);
     return (
         <>
         <Grid container padding={4} spacing={2}>
@@ -61,7 +61,7 @@ export const ResultPage = (): JSX.Element => {
                 <Paper elevation={3} style={{padding: 10}}>
                     <Typography variant="h4">あなたが書いた文字</Typography>
                     <Box border={"solid 1px black"} width={150} height={150} margin={"10px auto"}>
-                        <img src={base64Uri} width={150} height={150} />
+                        <img src={base64Uri} width={150} height={150} alt="" />
                     </Box>
                 </Paper>
             </Grid>

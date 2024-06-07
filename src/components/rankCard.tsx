@@ -23,7 +23,7 @@ export const RankCard = ({result}:Props):JSX.Element => {
                 </Typography>
             </CardContent>
             <CardMedia style={{width: "45%", display: "flex", justifyContent: "center", padding: "2px"}}>
-                <img src={result.base64Uri} style={{maxHeight: "90%",maxWidth: "95%", border: "solid 1px black", margin: 10, objectFit: "contain", padding: 0,}} />
+                <img src={result.base64Uri} style={{maxHeight: "90%",maxWidth: "95%", border: "solid 1px black", margin: 10, objectFit: "contain", padding: 0,}} alt="" />
             </CardMedia>
         </Card>
     )

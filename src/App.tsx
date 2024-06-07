@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Route,  Routes, BrowserRouter } from 'react-router-dom';
+import { Route,  Routes, HashRouter } from 'react-router-dom';
 import './App.css';
 import { GamePage } from './pages/Game';
 import { TopPage } from './pages/Top';
@@ -24,7 +24,7 @@ function App(props: Props) {
   }),1000*60);
   return (
   <>
-    <BrowserRouter>
+    <HashRouter>
     <AppBar position="static" style={{padding: 10}}>
       <Link to="/" style={{textDecoration: "none"}}>
         <Typography variant="h5" gutterBottom color={"white"}>
@@ -39,7 +39,7 @@ function App(props: Props) {
         <Route path="/result" element={<ResultPage />}></Route>
         <Route path="/ranking" element={<RankingPage char={kanji} />}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </>
   );
 }
