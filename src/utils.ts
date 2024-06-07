@@ -36,3 +36,7 @@ export const getRanking = (character: string):PlayResult[] =>{
 }
 
 
+export const getCurrentKanji = ():string => {
+    const dt = new Date()
+    return "命神変道金朝岩学芽臣雪町剣馬交銃男魚選君猫更軽赤夜"[dt.getHours()]
+}

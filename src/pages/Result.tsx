@@ -32,7 +32,7 @@ export const ResultPage = (): JSX.Element => {
             if (data.symbols![0].text === char) {
                 setScore(Math.round((100-data.symbols![0].confidence!)*1000)/1000)
             } else {
-                setScore(10)
+                setScore(0)
             }
             await worker.terminate();
           })();
@@ -63,7 +63,7 @@ export const ResultPage = (): JSX.Element => {
                         AIはあなたの文字を <strong>{script}</strong> と判断しました
                     </Typography>
                     <Typography variant="h4"　textAlign={"center"}>
-                    下手度： <strong>{score}</strong>
+                    スコア： <strong>{score}</strong>
                     </Typography>
                 </Paper>
             )}

@@ -21,7 +21,7 @@ export const GamePage = (props: Props): JSX.Element => {
                 <Grid item xs={3} spacing={1} padding={2}>
                     <Paper elevation={3}>
                         <Typography variant="h6" gutterBottom>
-                            お題の文字列：
+                            お題の漢字：
                         </Typography>
                         <Typography sx={{ fontSize: "4em" }} fontWeight={"bold"} gutterBottom>
                             {props.char}
