@@ -1,4 +1,3 @@
-import { Low } from "lowdb";
 
 export interface PlayResult {
     playerName: string;

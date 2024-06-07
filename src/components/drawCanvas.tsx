@@ -1,6 +1,6 @@
 import { fabric } from "fabric";
 import { Canvas } from 'fabric/fabric-impl';
-import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 const canvasId = "canvas";
 
 export interface DrawCanvasMethods {
@@ -29,6 +29,7 @@ export const DrawCanvas = forwardRef((props: any, ref: any) =>{
     const clearing = () => {
         if (fabricCanvas !== undefined) {
             fabricCanvas.clear()
+            fabricCanvas.getContext().fillRect(0,0,300,300)
             fabricCanvas.renderAll()
         }
     }

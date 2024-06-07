@@ -1,6 +1,7 @@
-import { Card, CardContent, CardMedia, FormControl, InputLabel, MenuItem, Paper, Select, Stack, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, FormControl, MenuItem, Paper, Select, Stack, Typography } from "@mui/material";
 import { PlayResult, getRanking, kanjiTable, storageGetter } from "../utils";
 import { useEffect, useState } from "react";
+import { RankCard } from "../components/rankCard";
 
 interface Props {
     char: string;
@@ -54,25 +55,7 @@ export const RankingPage = (props: Props):JSX.Element => {
             <>
             {
                 ranking.map(result=>{
-                    return <Card style={{display: "flex"}}>
-                        <CardContent style={{width: "70%"}}>
-                            <Typography variant="h5" style={{borderBottom: "1px solid black"}}>
-                                {result.playerName} さん
-                            </Typography>
-                            <Typography variant="h5" style={{borderBottom: "1px solid black"}}>
-                                お題：<strong>{result.character}</strong>
-                            </Typography>
-                            <Typography variant="caption">
-                                {result.date}
-                            </Typography>
-                            <Typography variant="h4">
-                                <strong>{result.score}</strong>点
-                            </Typography>
-                        </CardContent>
-                        <CardMedia style={{width: "30%", display: "flex", justifyContent: "center"}}>
-                            <img src={result.base64Uri} style={{height: "90%", border: "solid 1px black", margin: "auto"}} />
-                        </CardMedia>
-                    </Card>
+                    return <RankCard result={result} />
                 })
             }
             </>

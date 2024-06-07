@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlayResult } from '../utils';
 import { CardContent, Typography } from '@mui/material';
 

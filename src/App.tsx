@@ -1,15 +1,12 @@
 import {useState} from 'react';
-import logo from './logo.svg';
-import { BrowserRouter as Router, Route,  Routes, BrowserRouter } from 'react-router-dom';
+import { Route,  Routes, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { GamePage } from './pages/Game';
 import { TopPage } from './pages/Top';
-import { Low } from "lowdb";
 import { getCurrentKanji} from './utils';
 import { ResultPage } from './pages/Result';
 
 import {AppBar, Typography} from '@mui/material';
-import Tesseract from 'tesseract.js';
 
 import { Link } from "react-router-dom";
 import { RankingPage } from './pages/Ranking';
@@ -35,6 +32,7 @@ function App(props: Props) {
         </Typography>
       </Link>
     </AppBar>
+    <Link to="/">トップに戻る</Link>
       <Routes>
         <Route path="/" element={<TopPage char={kanji} />}></Route>
         <Route path="/game" element={<GamePage char={kanji} ranking={[]}/>}></Route>

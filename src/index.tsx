@@ -4,9 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { DbSchema } from './utils';
-import Tesseract from 'tesseract.js';
-
 // データベースのスキーマを定義
 
 

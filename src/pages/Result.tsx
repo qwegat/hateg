@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { PSM, createWorker, OEM } from 'tesseract.js';
 
-import { AppBar, Button, CardContent, Grid, Paper, Box, Typography } from '@mui/material';
+import { Button, Grid, Paper, Box, Typography } from '@mui/material';
 import { kanjis } from '../others/kanjis';
 import { PlayResult, resizeImg, storageGetter, storagePusher } from '../utils';
 
@@ -16,7 +16,6 @@ interface State {
 export const ResultPage = (): JSX.Element => {
     const location = useLocation(); 
     const {char, base64Uri} = location.state as State
-    const [confidence,setConfidence] = useState<number>(-1);
     const [script,setScript] = useState<string>("");
     const [waiting,setWaiting] = useState<boolean>(true)
     const [score,setScore] = useState<number>(-1)
@@ -24,13 +23,13 @@ export const ResultPage = (): JSX.Element => {
 
     useEffect(() => {
         (async () => {
-            const worker = await createWorker("jpn",OEM.TESSERACT_LSTM_COMBINED)
+            const worker = await createWorker("jpn",OEM.TESSERACT_ONLY)
             await worker.setParameters({tessedit_pageseg_mode: PSM.SINGLE_CHAR})
             await worker.setParameters({tessedit_char_whitelist: kanjis})
             const { data } = await worker.recognize(base64Uri);
+            console.log(data)
             if (data.symbols.length>0) {
                 setScript(data.symbols![0].text)
-                setConfidence(data.symbols![0].confidence!)
                 setWaiting(false)
                 if (data.symbols![0].text === char) {
                     setScore(Math.round((100-data.symbols![0].confidence!)*1000)/1000)
@@ -53,8 +52,8 @@ export const ResultPage = (): JSX.Element => {
             <Grid item xs={6}>
                 <Paper elevation={3} style={{padding: 10}}>
                     <Typography variant="h4">お題に出た文字</Typography>
-                    <Box border={"solid 1px black"} width={150} height={150} margin={"10px auto"} padding={0}>
-                        <Typography fontSize={150} textAlign={"center"} fontFamily={"serif"} lineHeight={"150px"}>{char}</Typography>
+                    <Box border={"solid 1px black"} width={"150px"} height={"150px"} margin={"10px auto"} padding={0}>
+                        <Typography fontSize={"150px"} textAlign={"center"} fontFamily={"serif"} lineHeight={"130px"} style={{verticalAlign: "middle"}} margin={0}>{char}</Typography>
                     </Box>
                 </Paper>
             </Grid>
@@ -73,7 +72,7 @@ export const ResultPage = (): JSX.Element => {
                         AIはあなたの文字を <strong>{script}</strong> と判断しました
                     </Typography>
                     <Typography variant="h4" textAlign={"center"}>
-                    スコア： <strong>{score}</strong>
+                    下手スコア： <strong>{score}</strong>
                     </Typography>
                 <Button variant="contained" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>navigate("/game")}>もう一度</Button>
                 <Button variant="outlined" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>{
@@ -94,7 +93,7 @@ export const ResultPage = (): JSX.Element => {
                         navigate("/")
                     }
                 }}>ランキングに登録</Button>
-                <Button variant="contained" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>navigate("/top")}>タイトルへ</Button>
+                <Button variant="contained" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>navigate("/")}>タイトルへ</Button>
 
                 </Paper>
             )}
