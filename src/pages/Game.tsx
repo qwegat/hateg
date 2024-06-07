@@ -37,8 +37,8 @@ export const GamePage = (props: Props): JSX.Element => {
 
                         <>
                         {
-                            getRanking(props.char).map(result=>{
-                                return <RankCard result={result} />
+                            getRanking(props.char).map((result,index)=>{
+                                return <RankCard result={result} order={index+1} />
                             })
                         }
                         </>

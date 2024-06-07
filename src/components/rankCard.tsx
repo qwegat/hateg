@@ -3,14 +3,15 @@ import { PlayResult } from "../utils"
 
 interface Props {
     result: PlayResult;
+    order: number;
 }
 
-export const RankCard = ({result}:Props):JSX.Element => {
+export const RankCard = ({result,order}:Props):JSX.Element => {
     return (
         <Card style={{display: "flex", padding: "3px",  overflow: "visible"}}>
             <CardContent style={{width: "55%", padding: "4px"}}>
                 <Typography variant="h6" style={{fontSize: "0.9em"}}>
-                    <strong>{result.playerName}</strong> さん
+                    {order}.<strong>{result.playerName}</strong> さん
                 </Typography>
                 <Typography variant="h5">
                     お題：<strong>{result.character}</strong>
