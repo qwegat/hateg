@@ -4,9 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { Low } from 'lowdb';
-import { JSONFile } from 'lowdb/node'
 import { DbSchema } from './utils';
+import Tesseract from 'tesseract.js';
 
 // データベースのスキーマを定義
 
@@ -17,9 +16,12 @@ const adapter = new JSONFile<DbSchema>('db.json');
 const db = new Low<DbSchema>(adapter,  {results: []});
 */
 
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <App />

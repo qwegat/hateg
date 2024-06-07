@@ -1,11 +1,11 @@
 import { fabric } from "fabric";
 import { Canvas } from 'fabric/fabric-impl';
 import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useState } from "react";
-
 const canvasId = "canvas";
 
 export interface DrawCanvasMethods {
     clear: () => void;
+    getBase64Uri: () => string;
 }
 
 export const DrawCanvas = forwardRef((props: any, ref: any) =>{
@@ -21,13 +21,16 @@ export const DrawCanvas = forwardRef((props: any, ref: any) =>{
         canvas.setHeight(300)
             
         canvas.freeDrawingBrush.color = "#000000";
-        canvas.freeDrawingBrush.width = 10;
+        canvas.freeDrawingBrush.width = 7;
         canvas.clear()
         setFabricCanvas(canvas)
     }
     useImperativeHandle(ref,()=>({
         clear: ()=>{
             clearing()
+        },
+        getBase64Uri: () => {
+            return (document.getElementById(canvasId) as HTMLCanvasElement).toDataURL()
         }
     }))
     useEffect(clearing, []);
