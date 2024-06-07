@@ -43,18 +43,6 @@ export const DrawCanvas = forwardRef((props: any, ref: any) =>{
     }))
     useEffect(initialize, []);
 
-    const handleBeforeUnload = () => {
-        clearing()
-    }
-    
-    useEffect(() => {
-        window.addEventListener('beforeunload', handleBeforeUnload)
-
-        return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload)
-        }
-    }, [handleBeforeUnload])
-
     return (
         <canvas id={canvasId} style={{height: "300px",width: "300px"}} />
     )
