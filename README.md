@@ -1,46 +1,15 @@
-# Getting Started with Create React App
+# AIに読める範囲でもっとも下手な字を書いた奴が勝ちオフライン
+## 概要
+- 文化祭用に2日で作ったゲームです
+- ランキング機能がありますがオンラインには対応していません
+  - 文化祭では一つのPCをつけっぱなしにしてこのページを表示し続けることで展示を行うため、オンラインのDBを用意せずともランキングをLocalStorageに保存すれば事足りる
+- Reactが下手すぎるため、コードが終わっています
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 遊び方
+1. 漢字が一つ指定される(**漢字A**)ので、所定の枠内にその漢字を書き込みます
+   - この漢字は1時間ごとに変わります（文化祭は2日しかないので、24漢字しか用意していない）
+2. 『完了！』ボタンを押します
+3. `tesseract.js`のOCR機能により、書き込まれた内容が文字として精査され……
+   - Aとは**別の漢字**だと判定された場合、**0点**です
+   - Aと**同じ漢字**だと判定された場合、その評価値が低いほど(=**下手なほど**)スコアが高くなります
+4. ギリギリを攻めよう！
