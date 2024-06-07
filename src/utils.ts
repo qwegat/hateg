@@ -30,13 +30,30 @@ export const storagePusher = (result: PlayResult) => {
 }
 
 export const getRanking = (character: string):PlayResult[] =>{
-    const filteredResults = storageGetter().filter(result=>(result.character === character))
+    let filteredResults = storageGetter()
+    if (character !== "") {
+        filteredResults = filteredResults.filter(result=>(result.character === character))
+    }
+
     filteredResults.sort((a,b)=>b.score-a.score)
     return filteredResults
 }
 
 
+export const kanjiTable = "命神変道金朝岩学芽臣雪町剣馬交銃男魚選君猫更軽赤夜"
+
 export const getCurrentKanji = ():string => {
     const dt = new Date()
-    return "命神変道金朝岩学芽臣雪町剣馬交銃男魚選君猫更軽赤夜"[dt.getHours()]
+    return kanjiTable[dt.getHours()]
 }
+
+export const resizeImg = (input_base64: string):string => {
+    const imageData = new Image()
+    imageData.src = input_base64
+    const canvas = document.createElement('canvas');
+    canvas.width = 75;
+    canvas.height = 75;
+    const ctx = canvas.getContext('2d');
+    ctx!.drawImage(imageData, 0, 0,75,75);
+    return canvas.toDataURL('image/png')
+  }

@@ -12,6 +12,7 @@ import {AppBar, Typography} from '@mui/material';
 import Tesseract from 'tesseract.js';
 
 import { Link } from "react-router-dom";
+import { RankingPage } from './pages/Ranking';
 
 
 
@@ -30,7 +31,7 @@ function App(props: Props) {
     <AppBar position="static" style={{padding: 10}}>
       <Link to="/" style={{textDecoration: "none"}}>
         <Typography variant="h5" gutterBottom color={"white"}>
-            読める範囲で下手な字を書いた奴が勝ちオフライン
+            AIに読める範囲でもっとも下手な字を書いた奴が勝ちオフライン
         </Typography>
       </Link>
     </AppBar>
@@ -38,6 +39,7 @@ function App(props: Props) {
         <Route path="/" element={<TopPage char={kanji} />}></Route>
         <Route path="/game" element={<GamePage char={kanji} ranking={[]}/>}></Route>
         <Route path="/result" element={<ResultPage />}></Route>
+        <Route path="/ranking" element={<RankingPage char={kanji} />}></Route>
       </Routes>
     </BrowserRouter>
   </>

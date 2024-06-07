@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PSM, createWorker, OEM } from 'tesseract.js';
 
 import { AppBar, Button, CardContent, Grid, Paper, Box, Typography } from '@mui/material';
 import { kanjis } from '../others/kanjis';
+import { PlayResult, resizeImg, storageGetter, storagePusher } from '../utils';
 
 
 
@@ -19,6 +20,7 @@ export const ResultPage = (): JSX.Element => {
     const [script,setScript] = useState<string>("");
     const [waiting,setWaiting] = useState<boolean>(true)
     const [score,setScore] = useState<number>(-1)
+    const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
@@ -26,13 +28,21 @@ export const ResultPage = (): JSX.Element => {
             await worker.setParameters({tessedit_pageseg_mode: PSM.SINGLE_CHAR})
             await worker.setParameters({tessedit_char_whitelist: kanjis})
             const { data } = await worker.recognize(base64Uri);
-            setScript(data.symbols![0].text)
-            setConfidence(data.symbols![0].confidence!)
-            setWaiting(false)
-            if (data.symbols![0].text === char) {
-                setScore(Math.round((100-data.symbols![0].confidence!)*1000)/1000)
+            if (data.symbols.length>0) {
+                setScript(data.symbols![0].text)
+                setConfidence(data.symbols![0].confidence!)
+                setWaiting(false)
+                if (data.symbols![0].text === char) {
+                    setScore(Math.round((100-data.symbols![0].confidence!)*1000)/1000)
+                } else {
+                    setScore(0)
+                }
+
             } else {
+                
+                setScript("判読不能")
                 setScore(0)
+                setWaiting(false)
             }
             await worker.terminate();
           })();
@@ -59,12 +69,33 @@ export const ResultPage = (): JSX.Element => {
             <Grid item xs={12}>
             {waiting?"読み込み中……":(
                 <Paper>
-                    <Typography variant="h4"　textAlign={"center"}>
+                    <Typography variant="h4" textAlign={"center"}>
                         AIはあなたの文字を <strong>{script}</strong> と判断しました
                     </Typography>
-                    <Typography variant="h4"　textAlign={"center"}>
+                    <Typography variant="h4" textAlign={"center"}>
                     スコア： <strong>{score}</strong>
                     </Typography>
+                <Button variant="contained" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>navigate("/game")}>もう一度</Button>
+                <Button variant="outlined" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>{
+                    const playerName = window.prompt("プレイヤー名を入力してください")
+                    if (playerName === null) {
+                        navigate("/")
+                    } else {
+                        const d = new Date()
+                        const outResult: PlayResult = {
+                            playerName: playerName,
+                            base64Uri: resizeImg(base64Uri),
+                            score: score,
+                            character: char,
+                            date: d.toString()
+                        }
+                        storagePusher(outResult)
+                        console.log(storageGetter().length)
+                        navigate("/")
+                    }
+                }}>ランキングに登録</Button>
+                <Button variant="contained" style={{margin: "10px auto", fontSize: 40, display: "block", width: "10em"}} onClick={()=>navigate("/top")}>タイトルへ</Button>
+
                 </Paper>
             )}
             </Grid>

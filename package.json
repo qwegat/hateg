@@ -14,6 +14,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "buffer": "^6.0.3",
+    "clsx": "^2.1.1",
     "fabric": "^5.3.0",
     "lowdb": "^7.0.1",
     "react": "^18.3.1",

@@ -12,10 +12,10 @@ export const DrawCanvas = forwardRef((props: any, ref: any) =>{
     const [fabricCanvas, setFabricCanvas] = useState<Canvas>()
     
 
-    const clearing = () =>{
+    const initialize = () =>{
         const canvas = new fabric.Canvas(canvasId, {
         isDrawingMode: true,
-        backgroundColor: "#ffffff",
+        backgroundColor: "rgba(255,255,255,0)",
         });
         canvas.setWidth(300)
         canvas.setHeight(300)
@@ -25,6 +25,13 @@ export const DrawCanvas = forwardRef((props: any, ref: any) =>{
         canvas.clear()
         setFabricCanvas(canvas)
     }
+
+    const clearing = () => {
+        if (fabricCanvas !== undefined) {
+            fabricCanvas.clear()
+            fabricCanvas.renderAll()
+        }
+    }
     useImperativeHandle(ref,()=>({
         clear: ()=>{
             clearing()
@@ -33,7 +40,7 @@ export const DrawCanvas = forwardRef((props: any, ref: any) =>{
             return (document.getElementById(canvasId) as HTMLCanvasElement).toDataURL()
         }
     }))
-    useEffect(clearing, []);
+    useEffect(initialize, []);
 
     const handleBeforeUnload = () => {
         clearing()
