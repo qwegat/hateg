@@ -33,7 +33,7 @@ export const GamePage = (props: Props): JSX.Element => {
                             ランキング
                         </Typography>
                         
-                        <Stack spacing={2} height={"60%"} style={{overflowY: "scroll", height: "65vh", padding: "3px"}}>
+                        <Stack spacing={2} height={"60%"} style={{overflowY: "scroll", height: "65vh", padding: "3px"}} justifyContent={"flex-start"}>
 
                         <>
                         {

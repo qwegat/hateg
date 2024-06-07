@@ -7,7 +7,7 @@ interface Props {
 
 export const RankCard = ({result}:Props):JSX.Element => {
     return (
-        <Card style={{display: "flex", padding: "3px"}}>
+        <Card style={{display: "flex", padding: "3px",  overflow: "visible"}}>
             <CardContent style={{width: "55%", padding: "4px"}}>
                 <Typography variant="h6" style={{fontSize: "0.9em"}}>
                     <strong>{result.playerName}</strong> さん
