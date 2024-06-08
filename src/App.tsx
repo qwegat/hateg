@@ -20,7 +20,7 @@ interface Props {
 function App(props: Props) {
   const [kanji,setKanji] = useState(getCurrentKanji())
   setTimeout((()=>{
-    setKanji(getCurrentKanji)
+    setKanji(getCurrentKanji())
   }),1000*60);
   return (
   <>
