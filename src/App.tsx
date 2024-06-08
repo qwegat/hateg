@@ -19,9 +19,9 @@ interface Props {
 
 function App(props: Props) {
   const [kanji,setKanji] = useState(getCurrentKanji())
-  setTimeout((()=>{
+  const refreshKanji = () => {
     setKanji(getCurrentKanji())
-  }),1000*60);
+  }
   return (
   <>
     <HashRouter>
@@ -34,7 +34,7 @@ function App(props: Props) {
     </AppBar>
     <Link to="/">トップに戻る</Link>
       <Routes>
-        <Route path="/" element={<TopPage char={kanji} />}></Route>
+        <Route path="/" element={<TopPage char={kanji} setKanjiFunc={refreshKanji} />}></Route>
         <Route path="/game" element={<GamePage char={kanji} ranking={[]}/>}></Route>
         <Route path="/result" element={<ResultPage />}></Route>
         <Route path="/ranking" element={<RankingPage char={kanji} />}></Route>

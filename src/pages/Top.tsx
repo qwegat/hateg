@@ -1,13 +1,21 @@
 import { Button,Typography, Paper, Box } from "@mui/material";
+import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
     char: string;
+    setKanjiFunc: (()=>void);
 }
 
 
 export const TopPage = (props: Props):JSX.Element => {
     const navigate = useNavigate()
+    useEffect(()=> {
+        const interval = setInterval(() => {
+            props.setKanjiFunc()
+        }, 1000*60);
+          return () => clearInterval(interval);
+    },[])
     return (
         <Box style={{padding:20}}>
             <Paper style={{padding:20}}>
