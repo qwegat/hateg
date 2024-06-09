@@ -6,6 +6,7 @@ import { PlayResult, getRanking } from '../utils';
 import { DrawCanvas, DrawCanvasMethods } from '../components/drawCanvas';
 import { useNavigate } from 'react-router-dom'; //追加
 import { RankCard } from '../components/rankCard';
+import { SimpleRanking } from '../components/simpleRanking';
 
 
 interface Props {
@@ -19,31 +20,9 @@ export const GamePage = (props: Props): JSX.Element => {
     return (
         <>
             <Grid container spacing={1} padding={1} sx={{height: "100%"}}>
-                <Grid item xs={3} padding={2}>
-                    <Paper elevation={3}>
-                        <Typography variant="h6" gutterBottom>
-                            お題の漢字：
-                        </Typography>
-                        <Typography sx={{ fontSize: "4em" }} fontWeight={"bold"} gutterBottom>
-                            {props.char}
-                        </Typography>
-                    </Paper>
-                    <Paper elevation={3}>
-                        <Typography variant="h6" gutterBottom>
-                            ランキング
-                        </Typography>
-                        
-                        <Stack spacing={2} height={"60%"} style={{overflowY: "scroll", height: "65vh", padding: "3px"}} justifyContent={"flex-start"}>
-
-                        <>
-                        {
-                            getRanking(props.char).map((result,index)=>{
-                                return <RankCard result={result} order={index+1} />
-                            })
-                        }
-                        </>
-                        </Stack>
-                    </Paper>
+                <Grid item xs={3} padding={2} height={"90vh"}>
+                    <SimpleRanking char={props.char} />
+                    
                 </Grid>
                 <Grid item xs={9} padding={2} sx={{height: "90vh"}}>
                     <Paper elevation={3} style={{position: "relative",padding: "10px"}} sx={{minHeight: "90%"}}>
